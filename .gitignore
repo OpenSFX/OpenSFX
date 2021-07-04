@@ -1,0 +1,5 @@
+# Project exclude paths
+/build/debug-x64/
+/build/debug-x86/
+/build/release-x64/
+/build/release-x86/
