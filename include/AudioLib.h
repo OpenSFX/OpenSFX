@@ -5,97 +5,97 @@ extern "C"
 {
 #endif
 
-    struct AudioFile;
-    struct AudioSource;
+    struct SFXAudioFile;
+    struct SFXAudioSource;
 
     /**
      * The current status of an audio source
      */
-    enum AudioStatus
+    enum SFXAudioStatus
     {
-        PLAYING, // The source is playing
-        PAUSED,  // The source is paused
-        STOPPED  // The source is stopped
+        SFX_PLAYING, // The source is playing
+        SFX_PAUSED,  // The source is paused
+        SFX_STOPPED  // The source is stopped
     };
 
     /**
      * Loads an audio file into memory
      * @param file The path of the file to load
-     * @return The AudioFile structure representing the loaded audio file
+     * @return The SFXAudioFile structure representing the loaded audio file
      */
-    struct AudioFile* sfx_load_file(const char* file);
+    struct SFXAudioFile* sfx_file_load(const char* file);
 
     /**
      * Releases the memory associated with a loaded audio file
      * @param file The audio file to unload
      */
-    void sfx_free_file(struct AudioFile* file);
+    void sfx_file_free(struct SFXAudioFile* file);
 
     /**
-     * Creates an AudioSource from an audio file
+     * Creates an SFXAudioSource from an audio file
      * @param file The audio file to load
      * @return The created audio source
      */
-    struct AudioSource* sfx_create_source(struct AudioFile* file);
+    struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file);
 
     /**
      * Releases the memory associated with an audio source
-     * @param source The AudioSource to unload
+     * @param source The SFXAudioSource to unload
      */
-    void sfx_free_source(struct AudioSource* source);
+    void sfx_source_free(struct SFXAudioSource* source);
 
     /**
      * Plays audio directly from a file
      * @param file The audio file to play
      * @return The created audio source
      */
-    struct AudioSource* sfx_play_file(struct AudioFile* file);
+    struct SFXAudioSource* sfx_file_play(struct SFXAudioFile* file);
 
     /**
      * Starts streaming an audio file
      * @param file The file to play
      * @return The created audio source
      */
-    struct AudioSource* sfx_play_file_streaming(struct AudioFile* file);
+    struct SFXAudioSource* sfx_file_play_streaming(struct SFXAudioFile* file);
 
     /**
      * Plays an audio source
      * @param source The audio source to play
      */
-    void sfx_play(struct AudioSource* source);
+    void sfx_source_play(struct SFXAudioSource* source);
 
     /**
      * Pauses an audio source
      * @param source The source to pause
      */
-    void sfx_pause(struct AudioSource* source);
+    void sfx_source_pause(struct SFXAudioSource* source);
 
     /**
      * Stops an audio source
      * @param source The source to stop
      */
-    void sfx_stop(struct AudioSource* source);
+    void sfx_source_stop(struct SFXAudioSource* source);
 
     /**
      * Sets the sample position of an audio source
      * @param source The audio source to modify
      * @param position The new sample position
      */
-    void sfx_set_sample_position(struct AudioSource* source, unsigned int position);
+    void sfx_source_seek(struct SFXAudioSource* source, unsigned int position);
 
     /**
      * Gets the sample position of an audio source
      * @param source The audio source to get the sample position from
      * @return The sample position
      */
-    unsigned int sfx_get_sample_position(struct AudioSource* source);
+    unsigned int sfx_source_tell(struct SFXAudioSource* source);
 
     /**
      * Gets the status of an audio source
      * @param source The audio source to get the status from
      * @return The status of the specified audio source
      */
-    enum AudioStatus sfx_get_status(struct AudioSource* source);
+    enum SFXAudioStatus sfx_source_status(struct SFXAudioSource* source);
 
     /**
      * Sets the minimum and maximum distance where the source is audible
@@ -103,7 +103,7 @@ extern "C"
      * @param min The minimum distance where the source is audible
      * @param max The maximum distance where the source is audible
      */
-    void sfx_set_audible_distance(struct AudioSource* source, float min, float max);
+    void sfx_source_distance(struct SFXAudioSource* source, float min, float max);
 
     /**
      * Sets whether or not the source should loop
@@ -111,7 +111,7 @@ extern "C"
      * @param looping true if the source should loop,
      * false if it shouldn't
      */
-    void sfx_set_looping(struct AudioSource* source, bool looping);
+    void sfx_source_looping(struct SFXAudioSource* source, bool looping);
 
     /**
      * Sets the position of an audio source
@@ -120,7 +120,7 @@ extern "C"
      * @param y The Y Coordinate of the position
      * @param z The Z Coordinate of the position
      */
-    void sfx_set_position(struct AudioSource* source, float x, float y, float z);
+    void sfx_source_position(struct SFXAudioSource* source, float x, float y, float z);
 
     /**
      * Sets the direction of an audio source
@@ -129,7 +129,7 @@ extern "C"
      * @param y The Y Coordinate of the direction
      * @param z The Z Coordinate of the direction
      */
-    void sfx_set_direction(struct AudioSource* source, float x, float y, float z);
+    void sfx_source_direction(struct SFXAudioSource* source, float x, float y, float z);
 
     /**
      * Sets the velocity of an audio source
@@ -138,14 +138,14 @@ extern "C"
      * @param y The Y Coordinate of the velocity
      * @param z The Z Coordinate of the velocity
      */
-    void sfx_set_velocity(struct AudioSource* source, float x, float y, float z);
+    void sfx_source_velocity(struct SFXAudioSource* source, float x, float y, float z);
 
     /**
      * Sets the volume of an audio source
      * @param source The audio source to modify
      * @param volume The new volume to set
      */
-    void sfx_set_volume(struct AudioSource* source, float volume);
+    void sfx_source_volume(struct SFXAudioSource* source, float volume);
 
     /**
      * Sets the pitch of an audio source
@@ -153,7 +153,7 @@ extern "C"
      * @param pitch The new pitch for the audio source
      * @example sfx_set_pitch(source, 1.2f);
      */
-    void sfx_set_pitch(struct AudioSource* source, float pitch);
+    void sfx_source_pitch(struct SFXAudioSource* source, float pitch);
 
     /**
      * Sets the frequency of an audio source
@@ -161,7 +161,7 @@ extern "C"
      * @param frequency The new frequency for the audio source
      * @example sfx_set_frequency(source, 44100);
      */
-    void sfx_set_frequency(struct AudioSource* source, int frequency);
+    void sfx_source_frequency(struct SFXAudioSource* source, int frequency);
 
     /**
      * Sets the cone of an audio source
@@ -170,7 +170,7 @@ extern "C"
      * @param outerAngle The outer angle of the cone
      * @param outerVolume The outer volume of the cone
      */
-    void sfx_set_cone(struct AudioSource* source, float innerAngle, float outerAngle, float outerVolume);
+    void sfx_source_cone(struct SFXAudioSource* source, float innerAngle, float outerAngle, float outerVolume);
 
     /**
      * Sets whether or not the position of this audio source is
@@ -179,7 +179,7 @@ extern "C"
      * @param relative true if the position of this audio source
      * should be relative to the listener position, false otherwise
      */
-    void sfx_set_relative(struct AudioSource* source, bool relative);
+    void sfx_source_relative(struct SFXAudioSource* source, bool relative);
 
     /**
      * Sets the listener position
@@ -187,7 +187,7 @@ extern "C"
      * @param y The Y Coordinate of the position
      * @param z The Z Coordinate of the position
      */
-    void sfx_set_listener_position(float x, float y, float z);
+    void sfx_listener_position(float x, float y, float z);
 
     /**
      * Sets the listener velocity
@@ -195,7 +195,7 @@ extern "C"
      * @param y The Y Coordinate of the velocity
      * @param z The Z Coordinate of the velocity
      */
-    void sfx_set_listener_velocity(float x, float y, float z);
+    void sfx_listener_velocity(float x, float y, float z);
 
     /**
      * Sets the listener orientation
@@ -206,7 +206,7 @@ extern "C"
      * @param upY The Y Coordinate of the up vector
      * @param upZ The Z Coordinate of the up vector
      */
-    void sfx_set_listener_orientation(float forwardX, float forwardY, float forwardZ, float upX, float upY, float upZ);
+    void sfx_listener_orientation(float forwardX, float forwardY, float forwardZ, float upX, float upY, float upZ);
 
 #ifdef __cplusplus
 }
