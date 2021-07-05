@@ -41,7 +41,7 @@ struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file)
 
 void sfx_source_free(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_free
+    delete source;
 }
 
 void sfx_source_play(struct SFXAudioSource* source)
