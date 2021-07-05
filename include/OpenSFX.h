@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __OPENSFX_H_
+#define __OPENSFX_H_
 
 #ifdef __cplusplus
 extern "C"
@@ -211,3 +212,5 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
+
+#endif // __OPENSFX_H_
