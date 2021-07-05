@@ -14,16 +14,16 @@ int main(int argc, const char** argv)
     const char* path = argv[1];
 
     std::cout << "Loading File: '" << path << "'..." << std::endl;
-    AudioFile* file = sfx_load_audio(path);
+    AudioFile* file = sfx_load_file(path);
 
     std::cout << "Creating Source..." << std::endl;
     AudioSource* source = sfx_create_source(file);
 
     std::cout << "Freeing File..." << std::endl;
-    sfx_free_audio(file);
+    sfx_free_file(file);
 
     std::cout << "Playing Source..." << std::endl;
-    sfx_play_source(source);
+    sfx_play(source);
 
     std::cout << "Waiting for source to finish playing..." << std::endl;
     while (sfx_get_status(source));

@@ -23,13 +23,13 @@ extern "C"
      * @param file The path of the file to load
      * @return The AudioFile structure representing the loaded audio file
      */
-    struct AudioFile* sfx_load_audio(const char* file);
+    struct AudioFile* sfx_load_file(const char* file);
 
     /**
      * Releases the memory associated with a loaded audio file
      * @param file The audio file to unload
      */
-    void sfx_free_audio(struct AudioFile* file);
+    void sfx_free_file(struct AudioFile* file);
 
     /**
      * Creates an AudioSource from an audio file
@@ -49,20 +49,20 @@ extern "C"
      * @param file The audio file to play
      * @return The created audio source
      */
-    struct AudioSource* sfx_play_audio(struct AudioFile* file);
-
-    /**
-     * Plays an audio source
-     * @param source The audio source to play
-     */
-    void sfx_play_source(struct AudioSource* source);
+    struct AudioSource* sfx_play_file(struct AudioFile* file);
 
     /**
      * Starts streaming an audio file
      * @param file The file to play
      * @return The created audio source
      */
-    struct AudioSource* sfx_play_streaming_audio(struct AudioFile* file);
+    struct AudioSource* sfx_play_file_streaming(struct AudioFile* file);
+
+    /**
+     * Plays an audio source
+     * @param source The audio source to play
+     */
+    void sfx_play(struct AudioSource* source);
 
     /**
      * Pauses an audio source
