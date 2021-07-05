@@ -1,4 +1,10 @@
 #include "OpenSFX.h"
+#include "SFXDevice.h"
+#include "SFXBuffer.h"
+#include "SFXSource.h"
+#include "OpenSFXException.h"
+
+using namespace OpenSFX;
 
 struct SFXAudioFile
 {
@@ -12,17 +18,20 @@ struct SFXAudioSource
 
 bool sfx_open_device(const char* deviceName)
 {
-    // TODO: Implement: sfx_open_device
-    return false;
-}
+    try
+    {
+        SFXDevice::get(deviceName);
+    } catch (OpenSFX::OpenSFXException e)
+    {
+        return false;
+    }
 
-void sfx_close_device()
-{
-    // TODO: Implement: sfx_close_device
+    return true;
 }
 
 struct SFXAudioFile* sfx_file_load(const char* file)
 {
+    SFXBuffer::get()->addSound(file);
     // TODO: Implement: sfx_file_load
     return new SFXAudioFile();
 }

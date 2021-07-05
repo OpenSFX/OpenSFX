@@ -28,11 +28,6 @@ extern "C"
     extern bool sfx_open_device(const char* deviceName);
 
     /**
-     * Closes the opened audio device
-     */
-    extern void sfx_close_device();
-
-    /**
      * Loads an audio file into memory
      * @param file The path of the file to load
      * @return The SFXAudioFile structure representing the loaded audio file

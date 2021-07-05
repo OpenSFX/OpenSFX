@@ -6,4 +6,5 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_executable(OpenSFXExample main.cpp)
+add_dependencies(OpenSFXExample OpenSFX)
 target_link_libraries(OpenSFXExample OpenSFX)
