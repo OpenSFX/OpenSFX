@@ -3,7 +3,7 @@
 
 int main(int argc, const char** argv)
 {
-    std::cout << "Audio Lib Example" << std::endl;
+    std::cout << "OpenSFX Example" << std::endl;
 
     if (argc < 2)
     {
