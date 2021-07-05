@@ -20,6 +20,19 @@ extern "C"
     };
 
     /**
+     * Opens an audio device
+     * @param deviceName the name of the device to open
+     * or null for the default device
+     * @return true if the function succeeded, false otherwise
+     */
+    extern bool sfx_open_device(const char* deviceName);
+
+    /**
+     * Closes the opened audio device
+     */
+    extern void sfx_close_device();
+
+    /**
      * Loads an audio file into memory
      * @param file The path of the file to load
      * @return The SFXAudioFile structure representing the loaded audio file

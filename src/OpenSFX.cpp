@@ -10,6 +10,16 @@ struct SFXAudioSource
     // TODO: Implement: SFXAudioSource
 };
 
+bool sfx_open_device(const char* deviceName)
+{
+    // TODO: Implement: sfx_open_device
+}
+
+void sfx_close_device()
+{
+    // TODO: Implement: sfx_close_device
+}
+
 struct SFXAudioFile* sfx_file_load(const char* file)
 {
     // TODO: Implement: sfx_file_load
