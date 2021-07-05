@@ -32,19 +32,6 @@ extern "C"
     void sfx_file_free(struct SFXAudioFile* file);
 
     /**
-     * Creates an SFXAudioSource from an audio file
-     * @param file The audio file to load
-     * @return The created audio source
-     */
-    struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file);
-
-    /**
-     * Releases the memory associated with an audio source
-     * @param source The SFXAudioSource to unload
-     */
-    void sfx_source_free(struct SFXAudioSource* source);
-
-    /**
      * Plays audio directly from a file
      * @param file The audio file to play
      * @return The created audio source
@@ -57,6 +44,19 @@ extern "C"
      * @return The created audio source
      */
     struct SFXAudioSource* sfx_file_play_streaming(struct SFXAudioFile* file);
+
+    /**
+     * Creates an SFXAudioSource from an audio file
+     * @param file The audio file to load
+     * @return The created audio source
+     */
+    struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file);
+
+    /**
+     * Releases the memory associated with an audio source
+     * @param source The SFXAudioSource to unload
+     */
+    void sfx_source_free(struct SFXAudioSource* source);
 
     /**
      * Plays an audio source
