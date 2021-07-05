@@ -56,16 +56,22 @@ extern "C"
 
     /**
      * Creates an SFXAudioSource from an audio file
-     * @param file The audio file to load
      * @return The created audio source
      */
-    extern struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file);
+    extern struct SFXAudioSource* sfx_source_create();
 
     /**
      * Releases the memory associated with an audio source
      * @param source The SFXAudioSource to unload
      */
     extern void sfx_source_free(struct SFXAudioSource* source);
+
+    /**
+     * Losds an audio file into an audio source
+     * @param source The audio source to load into
+     * @param file The audio file to load
+     */
+    extern void sfx_source_data(struct SFXAudioSource* source, struct SFXAudioFile* file);
 
     /**
      * Plays an audio source

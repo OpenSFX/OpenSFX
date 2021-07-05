@@ -24,7 +24,10 @@ int main(int argc, const char** argv)
     SFXAudioFile* file = sfx_file_load(path);
 
     std::cout << "Creating Source..." << std::endl;
-    SFXAudioSource* source = sfx_source_create(file);
+    SFXAudioSource* source = sfx_source_create();
+
+    std::cout << "Loading Data..." << std::endl;
+    sfx_source_data(source, file);
 
     std::cout << "Freeing File..." << std::endl;
     sfx_file_free(file);

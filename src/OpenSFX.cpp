@@ -1,4 +1,5 @@
 #include "OpenSFX.h"
+#include <AL/al.h>
 #include "SFXDevice.h"
 #include "SFXBuffer.h"
 #include "SFXSource.h"
@@ -8,12 +9,13 @@ using namespace OpenSFX;
 
 struct SFXAudioFile
 {
-    // TODO: Implement: SFXAudioFile
+    ALuint buffer;
+    const char* fileName;
 };
 
 struct SFXAudioSource
 {
-    // TODO: Implement: SFXAudioSource
+    SFXSource* source;
 };
 
 bool sfx_open_device(const char* deviceName)
@@ -31,20 +33,34 @@ bool sfx_open_device(const char* deviceName)
 
 struct SFXAudioFile* sfx_file_load(const char* file)
 {
-    SFXBuffer::get()->addSound(file);
-    // TODO: Implement: sfx_file_load
-    return new SFXAudioFile();
+    ALuint buffer = SFXBuffer::get()->addSound(file);
+    if (buffer == 0)
+        return nullptr;
+    SFXAudioFile* audioFile = new SFXAudioFile();
+    audioFile->buffer = buffer;
+    audioFile->fileName = file;
+    return audioFile;
 }
 
 void sfx_file_free(struct SFXAudioFile* file)
 {
-    delete file;
+    if (file)
+    {
+        SFXBuffer::get()->removeSound(file->buffer);
+        delete file;
+    }
 }
 
 struct SFXAudioSource* sfx_file_play(struct SFXAudioFile* file)
 {
-    // TODO: Implement: sfx_file_play
-    return new SFXAudioSource();
+    SFXAudioSource* source = sfx_source_create();
+    if (source == nullptr)
+        return nullptr;
+
+    source->source->setData(file->buffer);
+    source->source->play();
+
+    return source;
 }
 
 struct SFXAudioSource* sfx_file_play_streaming(struct SFXAudioFile* file)
@@ -53,110 +69,177 @@ struct SFXAudioSource* sfx_file_play_streaming(struct SFXAudioFile* file)
     return new SFXAudioSource();
 }
 
-struct SFXAudioSource* sfx_source_create(struct SFXAudioFile* file)
+struct SFXAudioSource* sfx_source_create()
 {
-    // TODO: Implement: sfx_source_create
-    return new SFXAudioSource();
+    SFXAudioSource* source = new SFXAudioSource();
+    source->source = new SFXSource();
+
+    return source;
 }
 
 void sfx_source_free(struct SFXAudioSource* source)
 {
-    delete source;
+    if (source)
+    {
+        delete source->source;
+        delete source;
+    }
+}
+
+void sfx_source_data(struct SFXAudioSource* source, struct SFXAudioFile* file)
+{
+    if (source == nullptr || file == nullptr)
+        return;
+    source->source->setData(file->buffer);
 }
 
 void sfx_source_play(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_play
+    if (source == nullptr)
+        return;
+
+    source->source->play();
 }
 
 void sfx_source_pause(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_pause
+    if (source == nullptr)
+        return;
+
+    source->source->pause();
 }
 
 void sfx_source_stop(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_stop
+    if (source == nullptr)
+        return;
+
+    source->source->stop();
 }
 
 void sfx_source_seek(struct SFXAudioSource* source, unsigned int position)
 {
-    // TODO: Implement: sfx_source_seek
+    if (source == nullptr)
+        return;
+
+    source->source->seek(position);
 }
 
 unsigned int sfx_source_tell(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_tell
-    return 0;
+    if (source == nullptr)
+        return 0;
+
+    return source->source->tell();
 }
 
 enum SFXAudioStatus sfx_source_status(struct SFXAudioSource* source)
 {
-    // TODO: Implement: sfx_source_status
-    return SFX_STOPPED;
+    if (source == nullptr)
+        return SFX_STOPPED;
+
+    return source->source->getStatus();
 }
 
 void sfx_source_distance(struct SFXAudioSource* source, float min, float max)
 {
-    // TODO: Implement: sfx_source_distance
+    if (source == nullptr)
+        return;
+
+    source->source->setDistance(min, max);
 }
 
 void sfx_source_looping(struct SFXAudioSource* source, bool looping)
 {
-    // TODO: Implement: sfx_source_looping
+    if (source == nullptr)
+        return;
+
+    source->source->setLooping(looping);
 }
 
 void sfx_source_position(struct SFXAudioSource* source, float x, float y, float z)
 {
-    // TODO: Implement: sfx_source_position
+    if (source == nullptr)
+        return;
+
+    source->source->setPosition(x, y, z);
 }
 
 void sfx_source_direction(struct SFXAudioSource* source, float x, float y, float z)
 {
-    // TODO: Implement: sfx_source_direction
+    if (source == nullptr)
+        return;
+
+    source->source->setDirection(x, y, z);
 }
 
 void sfx_source_velocity(struct SFXAudioSource* source, float x, float y, float z)
 {
-    // TODO: Implement: sfx_source_velocity
+    if (source == nullptr)
+        return;
+
+    source->source->setVelocity(x, y, z);
 }
 
 void sfx_source_volume(struct SFXAudioSource* source, float volume)
 {
-    // TODO: Implement: sfx_source_volume
+    if (source == nullptr)
+        return;
+
+    source->source->setVolume(volume);
 }
 
 void sfx_source_pitch(struct SFXAudioSource* source, float pitch)
 {
-    // TODO: Implement: sfx_source_pitch
+    if (source == nullptr)
+        return;
+
+    source->source->setPitch(pitch);
 }
 
 void sfx_source_frequency(struct SFXAudioSource* source, int frequency)
 {
-    // TODO: Implement: sfx_source_frequency
+    if (source == nullptr)
+        return;
+
+    source->source->setFrequency(frequency);
 }
 
 void sfx_source_cone(struct SFXAudioSource* source, float innerAngle, float outerAngle, float outerVolume)
 {
-    // TODO: Implement: sfx_source_cone
+    if (source == nullptr)
+        return;
+
+    source->source->setCone(innerAngle, outerAngle, outerVolume);
 }
 
 void sfx_source_relative(struct SFXAudioSource* source, bool relative)
 {
-    // TODO: Implement: sfx_source_relative
+    if (source == nullptr)
+        return;
+
+    source->source->setRelative(relative);
 }
 
 void sfx_listener_position(float x, float y, float z)
 {
-    // TODO: Implement: sfx_listener_position
+    alListener3f(AL_POSITION, x, y, z);
 }
 
 void sfx_listener_velocity(float x, float y, float z)
 {
-    // TODO: Implement: sfx_listener_velocity
+    alListener3f(AL_VELOCITY, x, y, z);
 }
 
 void sfx_listener_orientation(float forwardX, float forwardY, float forwardZ, float upX, float upY, float upZ)
 {
-    // TODO: Implement: sfx_listener_orientation
+    float orientation[3][2];
+    orientation[0][0] = forwardX;
+    orientation[1][0] = forwardY;
+    orientation[2][0] = forwardZ;
+    orientation[0][1] = upX;
+    orientation[1][1] = upX;
+    orientation[2][1] = upX;
+
+    alListenerfv(AL_ORIENTATION, (const float*)&orientation[0]);
 }
