@@ -1,5 +1,5 @@
-#ifndef __OPENSFX_H_
-#define __OPENSFX_H_
+#ifndef __OPEN_SFX_H_
+#define __OPEN_SFX_H_
 
 #ifdef __cplusplus
 extern "C"
@@ -213,4 +213,4 @@ extern "C"
 }
 #endif
 
-#endif // __OPENSFX_H_
+#endif // __OPEN_SFX_H_
