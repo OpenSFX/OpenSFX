@@ -22,6 +22,11 @@ int main(int argc, const char** argv)
 
     std::cout << "Loading File: '" << path << "'..." << std::endl;
     SFXAudioFile* file = sfx_file_load(path);
+    if (file == nullptr)
+    {
+        std::cerr << "Error: Failed to open file!" << std::endl;
+        return 1;
+    }
 
     std::cout << "Creating Source..." << std::endl;
     SFXAudioSource* source = sfx_source_create();

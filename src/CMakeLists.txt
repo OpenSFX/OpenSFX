@@ -9,6 +9,7 @@ set(SRC_MAIN
     SFXDevice.cpp SFXDevice.h
     SFXBuffer.cpp SFXBuffer.h
     SFXSource.cpp SFXSource.h
+    io/SFXHandle.cpp io/SFXHandle.h
 
     OpenSFX.cpp ${CMAKE_SOURCE_DIR}/include/OpenSFX.h
 )
