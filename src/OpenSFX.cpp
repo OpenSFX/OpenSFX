@@ -13,6 +13,7 @@ struct SFXAudioSource
 bool sfx_open_device(const char* deviceName)
 {
     // TODO: Implement: sfx_open_device
+    return false;
 }
 
 void sfx_close_device()

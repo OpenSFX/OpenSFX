@@ -13,6 +13,13 @@ int main(int argc, const char** argv)
 
     const char* path = argv[1];
 
+    std::cout << "Opening Audio Device..." << std::endl;
+    if (!sfx_open_device(nullptr))
+    {
+        std::cerr << "Error: Failed to open audio device!" << std::endl;
+        return 1;
+    }
+
     std::cout << "Loading File: '" << path << "'..." << std::endl;
     SFXAudioFile* file = sfx_file_load(path);
 
