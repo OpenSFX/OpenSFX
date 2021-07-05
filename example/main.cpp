@@ -1,5 +1,5 @@
 #include <iostream>
-#include <AudioLib.h>
+#include <OpenSFX.h>
 
 int main(int argc, const char** argv)
 {
