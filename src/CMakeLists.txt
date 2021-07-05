@@ -9,4 +9,4 @@ set(SRC_MAIN
     OpenSFX.cpp ${CMAKE_SOURCE_DIR}/include/OpenSFX.h
 )
 
-add_library(OpenSFX ${SRC_MAIN})
+add_library(OpenSFX STATIC ${SRC_MAIN})
