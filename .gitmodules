@@ -4,3 +4,9 @@
 [submodule "lib/SDL2"]
 	path = lib/SDL2
 	url = https://github.com/libsdl-org/SDL
+[submodule "lib/MP3Detect"]
+	path = lib/MP3Detect
+	url = https://github.com/HumanGamer/MP3Detect
+[submodule "lib/minimp3"]
+	path = lib/minimp3
+	url = https://github.com/lieff/minimp3

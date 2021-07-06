@@ -24,7 +24,7 @@ int main(int argc, const char** argv)
     SFXAudioFile* file = sfx_file_load(path);
     if (file == nullptr)
     {
-        std::cerr << "Error: Failed to open file!" << std::endl;
+        std::cerr << "Error2: Failed to open file!" << std::endl;
         return 1;
     }
 

@@ -1,5 +1,6 @@
 #include "SFXBuffer.h"
 #include "io/SFXHandle.h"
+#include <iostream>
 
 using namespace OpenSFX;
 
@@ -15,9 +16,6 @@ ALuint SFXBuffer::addSound(const char *filename)
     if (handle == nullptr)
         return 0;
 
-    ALuint buffer;
-    alGenBuffers(1, &buffer);
-
     std::vector<unsigned short> data;
     unsigned short read_buf[2048];
 
@@ -27,10 +25,20 @@ ALuint SFXBuffer::addSound(const char *filename)
         data.insert(data.end(), read_buf, read_buf + read_size);
     }
 
+    ALuint buffer = 0;
+    alGenBuffers(1, &buffer);
+    ALuint err = alGetError();
+    if (err != AL_NO_ERROR)
+        std::cerr << "Error1: " << err << std::endl;
     alBufferData(buffer, handle->getChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16,
                  &data.front(), data.size() * sizeof(unsigned short), handle->getSampleRate());
 
-    handle->close();
+    err = alGetError();
+    if (err == AL_OUT_OF_MEMORY)
+        std::cerr << "Error2: OUT OF MEMORY" << std::endl;
+
+    delete handle;
+
     return buffer;
 }
 

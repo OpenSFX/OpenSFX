@@ -1,4 +1,5 @@
 #include "SFXHandle.h"
+#include "SFXHandleMP3.h"
 
 using namespace OpenSFX;
 
@@ -6,10 +7,15 @@ SFXHandle* SFXHandle::open(const char *file)
 {
     SFXHandle* handle;
 
-    // TODO: Pick appropriate subclass for file format
+    // Pick appropriate subclass for file format
 
-    if (!handle->openFile(file))
-        return nullptr;
+    // MP3
+    if (handle = new SFXHandleMP3(),
+        !handle->openFile(file))
+    {
+        delete handle;
+        handle = nullptr;
+    }
 
     return handle;
 }
