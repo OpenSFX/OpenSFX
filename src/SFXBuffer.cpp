@@ -27,15 +27,9 @@ ALuint SFXBuffer::addSound(const char *filename)
 
     ALuint buffer = 0;
     alGenBuffers(1, &buffer);
-    ALuint err = alGetError();
-    if (err != AL_NO_ERROR)
-        std::cerr << "Error1: " << err << std::endl;
+
     alBufferData(buffer, handle->getChannels() == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16,
                  &data.front(), data.size() * sizeof(unsigned short), handle->getSampleRate());
-
-    err = alGetError();
-    if (err == AL_OUT_OF_MEMORY)
-        std::cerr << "Error2: OUT OF MEMORY" << std::endl;
 
     delete handle;
 

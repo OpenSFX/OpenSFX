@@ -97,6 +97,9 @@ bool SFXHandleMP3::openFile(const char *file)
     info->hz = frame_info->hz;
     info->layer = frame_info->layer;
 
+    mChannels = info->channels;
+    mSampleRate = info->hz;
+
     mReadPos = 0;
     mLoaded = false;
 

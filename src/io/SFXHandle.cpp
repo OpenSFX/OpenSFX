@@ -17,6 +17,8 @@ SFXHandle* SFXHandle::open(const char *file)
         handle = nullptr;
     }
 
+    handle->mPath = file;
+
     return handle;
 }
 

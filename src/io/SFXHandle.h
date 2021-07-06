@@ -18,7 +18,6 @@ namespace OpenSFX
     protected:
         SFXHandle();
 
-    private:
         const char* mPath;
         int mChannels;
         int mSampleRate;
